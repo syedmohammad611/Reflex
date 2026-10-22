@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReFlex – Student Portal Login</title>
+
+  <!-- Required Scripts & Styles -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { x: '#FF2E00', dark: '#000000' },
+          fontFamily: { sans: ['Product Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles/app.css" />
+  <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
+
+  <style>
+    /* Custom animations & glassmorphism effects */
+    @keyframes fadeInUpScale {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        opacity: 0.35;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.55;
+        transform: scale(1.08);
+      }
+    }
+
+    .animate-login-card {
+      animation: fadeInUpScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-ambient-glow {
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
+
+    .login-glass-card {
+      background: rgba(24, 24, 27, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .login-glass-card:hover {
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.12);
+    }
+
+    /* Ambient lighting */
+    .glow-sphere {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Custom spinner */
+    .spinner-custom {
+      border: 3px solid rgba(255, 255, 255, 0.15);
+      border-top-color: #FF2E00;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      animation: spin 0.85s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center p-4 sm:p-6 relative overflow-x-hidden selection:bg-x selection:text-white" style="background-image: url('public/overlay.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
+
+  <!-- Ambient Glow Effects (Glassmorphism Depth) -->
+  <div class="glow-sphere w-96 h-96 bg-x/15 -top-24 -left-24 animate-ambient-glow"></div>
+  <div class="glow-sphere w-80 h-80 bg-x/10 -bottom-20 -right-20 animate-ambient-glow" style="animation-delay: -4s;"></div>
+  <div class="glow-sphere w-64 h-64 bg-white/[0.03] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+
+  <!-- Main Login Card Container -->
+  <main class="w-full max-w-[440px] relative z-10">
+    <div class="login-glass-card rounded-3xl p-8 sm:p-10 border border-white/10 animate-login-card transition-all duration-300">
+      
+      <!-- Brand & Header Section -->
+      <div class="flex flex-col items-center text-center mb-8">
+        <div class="relative group cursor-default mb-4">
+          <div class="absolute -inset-2 bg-gradient-to-r from-x/20 via-white/5 to-x/20 rounded-2xl blur-md opacity-70 group-hover:opacity-100 transition duration-500"></div>
+          <div class="relative px-3 py-1.5 flex items-center justify-center">
+            <img src="public/reflex-logo.jpg" alt="ReFlex" class="h-9 w-auto object-contain filter drop-shadow-md select-none" />
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <h1 class="text-2xl sm:text-[26px] font-bold text-white tracking-tight flex items-center justify-center gap-2">
+            Student Portal
+          </h1>
+          <p class="text-xs sm:text-sm text-zinc-400 font-normal">
+            Sign in with your university credentials
+          </p>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="space-y-5" autocomplete="on" novalidate>
+        
+        <!-- Error / Notification banner (hidden by default) -->
+        <div id="formAlert" class="hidden rounded-xl bg-x/10 border border-x/30 p-3 text-xs text-red-200 flex items-start gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-x shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01"/>
+          </svg>
+          <span id="formAlertText" class="flex-1">Please enter your Student ID and Password.</span>
+        </div>
+
+        <!-- Student ID Field -->
+        <div>
+          <label for="studentId" class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+            Student ID
+          </label>
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500 group-focus-within:text-x transition-colors duration-200">
+              <!-- ID Badge Icon -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="studentId"
+              name="studentId"
+              placeholder="e.g. 21K-1234 or k211234"
+              required
+              autocomplete="username"
+              class="w-full pl-11 pr-4 py-3 bg-black/60 text-white rounded-xl border border-white/20 placeholder:text-zinc-500 text-sm focus:outline-none focus:border-x focus:ring-1 focus:ring-x hover:border-white/30 transition-all duration-200"
+            />
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Password
+            </label>
+            <a href="javascript:void(0)" id="forgotPasswordBtn" class="text-xs text-zinc-400 hover:text-x transition-colors duration-150">
+              Forgot password?
+            </a>
+          </div>
+          <div class="relative group">
+            <!-- Lock Icon inside password field -->
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500 group-focus-within:text-x transition-colors duration-200">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••••••"
+              required
+              autocomplete="current-password"
+              class="w-full pl-11 pr-11 py-3 bg-black/60 text-white rounded-xl border border-white/20 placeholder:text-zinc-500 text-sm focus:outline-none focus:border-x focus:ring-1 focus:ring-x hover:border-white/30 transition-all duration-200"
+            />
+            <!-- Password Toggle Show/Hide Button -->
+            <button
+              type="button"
+              id="togglePassword"
+              class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-white transition-colors duration-150 focus:outline-none"
+              title="Show password"
+              aria-label="Toggle password visibility"
+            >
+              <!-- Eye Icon (Hidden state) -->
+              <svg id="eyeIcon" class="w-5 h-5 transition-transform duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <!-- Eye Off Icon (Visible state) -->
+              <svg id="eyeSlashIcon" class="w-5 h-5 hidden transition-transform duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember Me Checkbox -->
+        <div class="flex items-center justify-between text-xs pt-1">
+          <label class="flex items-center gap-2.5 cursor-pointer select-none group">
+            <input
+              type="checkbox"
+              id="rememberMe"
+              class="w-4 h-4 rounded bg-black/60 border border-white/20 text-x focus:ring-x focus:ring-offset-0 focus:ring-1 accent-x cursor-pointer"
+            />
+            <span class="text-zinc-400 group-hover:text-zinc-300 transition-colors">Remember student ID</span>
+          </label>
+          <span class="text-zinc-600 font-mono text-[11px]">FAST-NUCES</span>
+        </div>
+
+        <!-- Login Button -->
+        <button
+          type="submit"
+          id="loginButton"
+          class="w-full py-3.5 px-4 bg-x hover:bg-[#e02800] active:scale-[0.985] text-white font-bold rounded-xl shadow-lg shadow-x/20 hover:shadow-x/35 transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer text-sm sm:text-base mt-2"
+        >
+          <span>Login</span>
+          <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+      </form>
+
+      <!-- Footer Section -->
+      <footer class="mt-8 pt-6 border-t border-white/10 text-center">
+        <p class="text-xs text-zinc-500 flex items-center justify-center gap-1.5 font-normal tracking-wide">
+          <span>Powered by</span>
+          <span class="font-semibold text-zinc-300 tracking-wider">ReFlex</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-x"></span>
+          <span class="text-zinc-500">Student Portal</span>
+        </p>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- Loading Spinner Overlay (hidden by default) -->
+  <div
+    id="loadingOverlay"
+    class="loading-overlay hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-opacity duration-300"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Loading authentication"
+  >
+    <div class="flex flex-col items-center gap-4 p-8 rounded-3xl bg-zinc-900/90 border border-white/10 shadow-2xl max-w-xs text-center animate-login-card">
+      <div class="spinner-custom"></div>
+      <div class="space-y-1">
+        <p class="text-white font-semibold text-base tracking-wide">Signing in...</p>
+        <p class="text-xs text-zinc-400">Authenticating with ReFlex Portal</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('loginForm');
+      const studentIdInput = document.getElementById('studentId');
+      const passwordInput = document.getElementById('password');
+      const togglePasswordBtn = document.getElementById('togglePassword');
+      const eyeIcon = document.getElementById('eyeIcon');
+      const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      const formAlert = document.getElementById('formAlert');
+      const formAlertText = document.getElementById('formAlertText');
+      const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+      const rememberMe = document.getElementById('rememberMe');
+
+      // Auto-fill student ID if previously remembered
+      const savedStudentId = localStorage.getItem('reflex_remembered_id');
+      if (savedStudentId) {
+        studentIdInput.value = savedStudentId;
+        rememberMe.checked = true;
+        passwordInput.focus();
+      } else {
+        studentIdInput.focus();
+      }
+
+      // 1. Password Visibility Toggle
+      togglePasswordBtn.addEventListener('click', () => {
+        const isPassword = passwordInput.getAttribute('type') === 'password';
+        passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+        
+        if (isPassword) {
+          eyeIcon.classList.add('hidden');
+          eyeSlashIcon.classList.remove('hidden');
+          togglePasswordBtn.setAttribute('title', 'Hide password');
+        } else {
+          eyeIcon.classList.remove('hidden');
+          eyeSlashIcon.classList.add('hidden');
+          togglePasswordBtn.setAttribute('title', 'Show password');
+        }
+      });
+
+      // 2. Forgot Password Hint
+      if (forgotPasswordBtn) {
+        forgotPasswordBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          showAlert('Please contact your university campus Academic / One-Stop Office to reset your portal password.');
+        });
+      }
+
+      function showAlert(msg) {
+        formAlertText.textContent = msg;
+        formAlert.classList.remove('hidden');
+      }
+
+      function hideAlert() {
+        formAlert.classList.add('hidden');
+      }
+
+      // Hide alert when user starts typing
+      studentIdInput.addEventListener('input', hideAlert);
+      passwordInput.addEventListener('input', hideAlert);
+
+      // 3. Form Submit -> Show Loading Overlay -> Redirect after 1.5s
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const idVal = studentIdInput.value.trim();
+        const passVal = passwordInput.value;
+
+        if (!idVal || !passVal) {
+          showAlert('Please enter both your Student ID and Password.');
+          if (!idVal) studentIdInput.focus();
+          else passwordInput.focus();
+          return;
+        }
+
+        // Save remembered student ID if checked
+        if (rememberMe.checked) {
+          localStorage.setItem('reflex_remembered_id', idVal);
+        } else {
+          localStorage.removeItem('reflex_remembered_id');
+        }
+
+        // Show loading spinner overlay
+        loadingOverlay.classList.remove('hidden');
+
+        // Redirect to index.html after 1.5 seconds
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>

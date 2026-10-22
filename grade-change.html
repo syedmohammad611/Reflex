@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReFlex – Grade Change Request</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { x: '#FF2E00', dark: '#000000' },
+          fontFamily: { sans: ['Product Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles/app.css" />
+  <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
+</head>
+<body class="bg-black bg-[url('public/overlay.png')] bg-no-repeat bg-cover bg-fixed text-white min-h-screen font-sans antialiased overflow-x-hidden">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div id="mobileBackdrop" class="fixed inset-0 bg-black/80 z-40 hidden lg:hidden"></div>
+
+  <!-- Mobile Top Bar -->
+  <div class="lg:hidden flex items-center justify-between p-4 bg-black border-b border-white/10 sticky top-0 z-30">
+    <div class="flex items-center gap-3">
+      <img src="public/reflex-logo.jpg" alt="ReFlex" class="h-6 w-auto" />
+    </div>
+    <button id="mobileMenuBtn" class="p-2 text-white/80 hover:text-white rounded-lg focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar (250px) -->
+    <aside id="sidebar" class="sidebar fixed top-0 bottom-0 left-0 w-[250px] bg-black border-r border-white/10 flex flex-col z-50 transition-transform duration-300 -translate-x-full lg:translate-x-0 custom-scrollbar">
+      <!-- Logo -->
+      <div class="sidebar-logo p-5 flex items-center justify-between border-b border-white/10 shrink-0">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="public/reflex-logo.jpg" alt="ReFlex" class="h-7 w-auto" />
+        </a>
+        <button id="closeSidebarBtn" class="lg:hidden text-white/60 hover:text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav flex-1 py-3 px-2 space-y-1 overflow-y-auto custom-scrollbar">
+        <!-- 1. Home -->
+        <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5a1 1 0 01-1-1v-5h-4v5a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
+          <span>Home</span>
+        </a>
+
+        <!-- 2. Course Registration -->
+        <a href="course-registration.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Course Registration</span>
+        </a>
+
+        <!-- 3. Attendance -->
+        <a href="attendance.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 16l2 2 4-4"/></svg>
+          <span>Attendance</span>
+        </a>
+
+        <!-- 4. Marks -->
+        <a href="marks.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="6"/><path stroke-linecap="round" stroke-linejoin="round" d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          <span>Marks</span>
+        </a>
+
+        <!-- 5. Marks PLO Report -->
+        <a href="plo-report.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Marks PLO Report</span>
+        </a>
+
+        <!-- 6. Transcript -->
+        <a href="transcript.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Transcript</span>
+        </a>
+
+        <!-- 7. Fee Challan -->
+        <a href="challan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <span>Fee Challan</span>
+        </a>
+
+        <!-- 8. Fee Details / Report -->
+        <a href="fee-report.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          <span>Fee Details</span>
+        </a>
+
+        <!-- 9. Course Feedback -->
+        <a href="feedback.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span>Course Feedback</span>
+        </a>
+
+        <!-- 10. Retake Request -->
+        <a href="retake.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Retake Exam Request</span>
+        </a>
+
+        <!-- 11. Course Withdraw -->
+        <a href="withdraw.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span>Course Withdraw</span>
+        </a>
+
+        <!-- 12. Grade Change Request (ACTIVE) -->
+        <a href="grade-change.html" class="active flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold transition-all bg-[#FF2E00]/10 text-[#FF2E00] border-l-4 border-[#FF2E00]">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path stroke-linecap="round" stroke-linejoin="round" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <span>Grade Change Request</span>
+          </div>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#FF2E00]"></span>
+        </a>
+
+        <!-- 13. Study Plan -->
+        <a href="study-plan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span>Tentative Study Plan</span>
+        </a>
+
+        <!-- 14. Change Password -->
+        <a href="change-password.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Change Password</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer (Profile + Actions) -->
+      <div class="sidebar-footer p-3 border-t border-white/10 shrink-0 space-y-2">
+        <div class="bg-zinc-900/80 border border-white/10 rounded-2xl p-2.5 flex items-center gap-3">
+          <img src="public/dev.png" alt="Muhammad Shah" class="w-9 h-9 rounded-xl object-cover border border-white/10" />
+          <div class="min-w-0 flex-1">
+            <h4 class="text-sm font-semibold text-white truncate">Muhammad Shah</h4>
+            <p class="text-xs text-zinc-400 truncate">Student Portal</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <a href="change-password.html" title="Change Password" class="flex items-center justify-center p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-white/80 hover:text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </a>
+          <a href="login.html" title="Logout" class="flex items-center justify-center p-2 rounded-xl bg-x hover:bg-x/80 text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 lg:ml-[250px] p-4 lg:p-8 min-h-screen">
+      <div class="max-w-7xl mx-auto space-y-6">
+
+        <!-- Informational Banner -->
+        <div id="gradeAlert" class="sf-alert flex items-start sm:items-center justify-between gap-4 bg-black border border-white/10 rounded-3xl p-5 shadow-xl transition-all">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="sf-alert-icon w-12 h-12 rounded-full bg-x flex items-center justify-center shrink-0 shadow-lg shadow-x/20">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="text-xs sm:text-sm text-zinc-300">
+              <span class="font-bold text-white">Note!</span> There is a strict two-week window to apply for a Grade Change Request after official approval and announcement of grades. Requests must be accompanied by credible proof of calculation error or retotaling discrepancy.
+            </div>
+          </div>
+          <button onclick="document.getElementById('gradeAlert').style.display='none'" class="text-zinc-500 hover:text-white p-1" title="Dismiss">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Portlet Card -->
+        <div class="portlet bg-black border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+          <!-- Portlet Header -->
+          <div class="portlet-head bg-black border-b border-white/10 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Grade Change Request</h2>
+              <select id="gradeSemester" class="sf-select bg-zinc-950 border border-white/10 rounded-xl px-3 py-1.5 text-xs sm:text-sm text-white focus:border-x outline-none">
+                <option value="Fall 2026">Fall 2026</option>
+                <option value="Spring 2026">Spring 2026</option>
+                <option value="Fall 2025">Fall 2025</option>
+              </select>
+            </div>
+
+            <!-- Action Button -->
+            <button onclick="openGradeChangeModal()" class="btn-x px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-x hover:bg-x/80 text-white transition-all inline-flex items-center gap-2 shadow-lg shadow-x/20">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Request Grade Change</span>
+            </button>
+          </div>
+
+          <!-- Selection Guide Bar -->
+          <div class="px-6 py-2.5 bg-zinc-900/40 border-b border-white/5 flex items-center justify-between text-xs text-zinc-400">
+            <div>
+              Selected: <span id="selectedCount" class="text-white font-bold">0</span> course(s) selected
+            </div>
+            <span class="text-zinc-500">Only courses with officially published final grades are eligible for rechecking.</span>
+          </div>
+
+          <!-- Table -->
+          <div class="portlet-body bg-black p-0 overflow-x-auto custom-scrollbar">
+            <table class="sf-table w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold uppercase text-zinc-400">
+                  <th class="py-4 px-6 w-12 text-center">
+                    <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAllGrade(this)" class="w-4 h-4 rounded accent-x cursor-pointer" title="Select All" />
+                  </th>
+                  <th class="py-4 px-6">S.No</th>
+                  <th class="py-4 px-6">Course Code</th>
+                  <th class="py-4 px-6">Course Name</th>
+                  <th class="py-4 px-6 text-center">Section</th>
+                  <th class="py-4 px-6 text-center">Current Grade</th>
+                  <th class="py-4 px-6 text-center">Semester</th>
+                  <th class="py-4 px-6 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody id="gradeTableBody" class="divide-y divide-white/5 text-sm">
+                <!-- Row 1 -->
+                <tr class="hover:bg-white/[0.02] transition-colors" data-code="CS3014" data-title="Applied Human Computer Interaction" data-section="BCS-5B" data-grade="B+">
+                  <td class="py-4 px-6 text-center">
+                    <input type="checkbox" class="grade-checkbox w-4 h-4 rounded accent-x cursor-pointer" onchange="updateGradeSelection()" />
+                  </td>
+                  <td class="py-4 px-6 text-zinc-400 font-mono">01</td>
+                  <td class="py-4 px-6 font-semibold text-white">CS3014</td>
+                  <td class="py-4 px-6 text-zinc-200">
+                    <span class="font-medium">Applied Human Computer Interaction</span>
+                    <span class="block text-xs text-zinc-500">Mr. Bilal Tariq &bull; 3 Cr</span>
+                  </td>
+                  <td class="py-4 px-6 text-center text-zinc-300">BCS-5B</td>
+                  <td class="py-4 px-6 text-center">
+                    <span class="inline-block px-3 py-1 rounded-lg bg-zinc-800 text-white font-bold text-xs border border-white/10">B+</span>
+                  </td>
+                  <td class="py-4 px-6 text-center text-zinc-300">Fall 2026</td>
+                  <td class="py-4 px-6 text-right status-col">
+                    <span class="text-rose-400 text-xs font-semibold">Not Applied</span>
+                  </td>
+                </tr>
+
+                <!-- Row 2 -->
+                <tr class="hover:bg-white/[0.02] transition-colors" data-code="CS4031" data-title="Compiler Construction" data-section="BCS-7B" data-grade="C+">
+                  <td class="py-4 px-6 text-center">
+                    <input type="checkbox" class="grade-checkbox w-4 h-4 rounded accent-x cursor-pointer" onchange="updateGradeSelection()" />
+                  </td>
+                  <td class="py-4 px-6 text-zinc-400 font-mono">02</td>
+                  <td class="py-4 px-6 font-semibold text-white">CS4031</td>
+                  <td class="py-4 px-6 text-zinc-200">
+                    <span class="font-medium">Compiler Construction</span>
+                    <span class="block text-xs text-zinc-500">Dr. Zeeshan Ali &bull; 3 Cr</span>
+                  </td>
+                  <td class="py-4 px-6 text-center text-zinc-300">BCS-7B</td>
+                  <td class="py-4 px-6 text-center">
+                    <span class="inline-block px-3 py-1 rounded-lg bg-zinc-800 text-amber-400 font-bold text-xs border border-amber-500/20">C+</span>
+                  </td>
+                  <td class="py-4 px-6 text-center text-zinc-300">Fall 2026</td>
+                  <td class="py-4 px-6 text-right status-col">
+                    <span class="text-rose-400 text-xs font-semibold">Not Applied</span>
+                  </td>
+                </tr>
+
+                <!-- Row 3 -->
+                <tr class="hover:bg-white/[0.02] transition-colors" data-code="CS4045" data-title="Deep Learning for Perception" data-section="BCS-7B" data-grade="B-">
+                  <td class="py-4 px-6 text-center">
+                    <input type="checkbox" class="grade-checkbox w-4 h-4 rounded accent-x cursor-pointer" onchange="updateGradeSelection()" />
+                  </td>
+                  <td class="py-4 px-6 text-zinc-400 font-mono">03</td>
+                  <td class="py-4 px-6 font-semibold text-white">CS4045</td>
+                  <td class="py-4 px-6 text-zinc-200">
+                    <span class="font-medium">Deep Learning for Perception</span>
+                    <span class="block text-xs text-zinc-500">Dr. Ahmad Raza &bull; 3 Cr</span>
+                  </td>
+                  <td class="py-4 px-6 text-center text-zinc-300">BCS-7B</td>
+                  <td class="py-4 px-6 text-center">
+                    <span class="inline-block px-3 py-1 rounded-lg bg-zinc-800 text-amber-400 font-bold text-xs border border-amber-500/20">B-</span>
+                  </td>
+                  <td class="py-4 px-6 text-center text-zinc-300">Fall 2026</td>
+                  <td class="py-4 px-6 text-right status-col">
+                    <span class="text-rose-400 text-xs font-semibold">Not Applied</span>
+                  </td>
+                </tr>
+
+                <!-- Row 4 -->
+                <tr class="hover:bg-white/[0.02] transition-colors" data-code="CS3006" data-title="Parallel and Distributed Computing" data-section="BCS-7B" data-grade="B">
+                  <td class="py-4 px-6 text-center">
+                    <input type="checkbox" class="grade-checkbox w-4 h-4 rounded accent-x cursor-pointer" onchange="updateGradeSelection()" />
+                  </td>
+                  <td class="py-4 px-6 text-zinc-400 font-mono">04</td>
+                  <td class="py-4 px-6 font-semibold text-white">CS3006</td>
+                  <td class="py-4 px-6 text-zinc-200">
+                    <span class="font-medium">Parallel and Distributed Computing</span>
+                    <span class="block text-xs text-zinc-500">Dr. Farrukh Salim &bull; 3 Cr</span>
+                  </td>
+                  <td class="py-4 px-6 text-center text-zinc-300">BCS-7B</td>
+                  <td class="py-4 px-6 text-center">
+                    <span class="inline-block px-3 py-1 rounded-lg bg-zinc-800 text-white font-bold text-xs border border-white/10">B</span>
+                  </td>
+                  <td class="py-4 px-6 text-center text-zinc-300">Fall 2026</td>
+                  <td class="py-4 px-6 text-right status-col">
+                    <span class="text-rose-400 text-xs font-semibold">Not Applied</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Grade Change Request Modal -->
+  <div id="gradeModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+    <div class="bg-black border border-white/10 rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <!-- Modal Header -->
+      <div class="p-6 border-b border-white/10 flex items-center justify-between">
+        <div>
+          <h3 class="text-xl font-bold text-white flex items-center gap-2">
+            Submit Grade Change Request
+          </h3>
+          <p class="text-xs sm:text-sm text-zinc-400 mt-1">Specify error type, claimed grade, and upload supporting calculations.</p>
+        </div>
+        <button onclick="closeGradeChangeModal()" class="text-zinc-500 hover:text-white p-1">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <form id="gradeChangeForm" onsubmit="handleGradeChangeSubmit(event)" class="p-6 overflow-y-auto custom-scrollbar space-y-5">
+        <!-- Selected Courses Summary -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">Target Course(s)</label>
+          <div id="modalGradeCoursesList" class="space-y-2 p-3 bg-zinc-900/60 border border-white/5 rounded-2xl text-xs text-zinc-300">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Reason Dropdown -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">Discrepancy Category <span class="text-x">*</span></label>
+          <select required class="sf-select w-full bg-zinc-950 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white focus:border-x outline-none">
+            <option value="">Select reason...</option>
+            <option value="Calculation / Summation Error in Final Exam">Calculation / Summation Error in Final Exam</option>
+            <option value="Uncounted Sessional Marks (Midterm / Quiz / Assignment)">Uncounted Sessional Marks (Midterm / Quiz / Assignment)</option>
+            <option value="Lab Practical / Project Marks Omission">Lab Practical / Project Marks Omission</option>
+            <option value="Retotaling Request for Theory Exam">Retotaling Request for Theory Exam</option>
+            <option value="Incorrect Grade Entered in Portal">Incorrect Grade Entered in Portal (Discrepancy with Marked Script)</option>
+          </select>
+        </div>
+
+        <!-- Expected Grade & Marks Claimed -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">Expected / Claimed Grade <span class="text-x">*</span></label>
+            <select required class="sf-select w-full bg-zinc-950 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white focus:border-x outline-none">
+              <option value="A">A (4.00)</option>
+              <option value="A-">A- (3.67)</option>
+              <option value="B+" selected>B+ (3.33)</option>
+              <option value="B">B (3.00)</option>
+              <option value="B-">B- (2.67)</option>
+              <option value="C+">C+ (2.33)</option>
+              <option value="C">C (2.00)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">Marks Difference (e.g. +4 Marks)</label>
+            <input type="text" placeholder="e.g. +4.5 marks in Q3" class="sf-input w-full bg-zinc-950 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white focus:border-x outline-none" />
+          </div>
+        </div>
+
+        <!-- Detailed Remarks Textarea -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">Detailed Remarks & Instructor Discussion Summary <span class="text-x">*</span></label>
+          <textarea required rows="3" placeholder="Provide specific breakdown of question-wise marks or quiz scores with dates..." class="sf-input w-full bg-zinc-950 border border-white/20 rounded-xl p-3 text-sm text-white placeholder-zinc-500 focus:border-x outline-none"></textarea>
+        </div>
+
+        <!-- Attachment -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">Upload Marked Script / LMS Screenshot Proof</label>
+          <input type="file" accept=".pdf,.jpg,.jpeg,.png" class="w-full text-xs text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-zinc-800 file:text-white hover:file:bg-zinc-700 bg-zinc-950 border border-white/10 rounded-xl p-2" />
+        </div>
+
+        <!-- Processing Fee Note -->
+        <div class="p-3 bg-zinc-900/60 border border-white/5 rounded-2xl text-xs text-zinc-400 flex items-center gap-2">
+          <svg class="w-4 h-4 text-x shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Retotaling / grade scrutiny fee of Rs. 1,000 applies per course, refundable if grade changes.</span>
+        </div>
+
+        <!-- Actions -->
+        <div class="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeGradeChangeModal()" class="btn-ghost px-5 py-2.5 rounded-xl text-sm font-medium bg-white/10 hover:bg-white/20 text-white">Cancel</button>
+          <button type="submit" class="btn-x px-6 py-2.5 rounded-xl text-sm font-semibold bg-x hover:bg-x/80 text-white shadow-lg shadow-x/20">Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-zinc-900 border border-emerald-500/30 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3">
+    <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    </div>
+    <div>
+      <h5 class="text-sm font-semibold text-white">Request Dispatched</h5>
+      <p class="text-xs text-zinc-400" id="toastMessage">Grade Change Request has been forwarded to Departmental Scrutiny Committee.</p>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    const sidebar = document.getElementById('sidebar');
+    const mobileBackdrop = document.getElementById('mobileBackdrop');
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('-translate-x-full');
+      mobileBackdrop.classList.toggle('hidden');
+    }
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleSidebar);
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleSidebar);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', toggleSidebar);
+
+    // Selection
+    function toggleSelectAllGrade(master) {
+      document.querySelectorAll('.grade-checkbox').forEach(cb => {
+        if (!cb.disabled) cb.checked = master.checked;
+      });
+      updateGradeSelection();
+    }
+
+    function updateGradeSelection() {
+      const selected = document.querySelectorAll('.grade-checkbox:checked').length;
+      document.getElementById('selectedCount').textContent = selected;
+      const total = document.querySelectorAll('.grade-checkbox:not(:disabled)').length;
+      document.getElementById('selectAllCheckbox').checked = (total > 0 && selected === total);
+    }
+
+    function getSelectedGradeCourses() {
+      const selected = [];
+      document.querySelectorAll('.grade-checkbox:checked').forEach(cb => {
+        const row = cb.closest('tr');
+        selected.push({
+          code: row.getAttribute('data-code'),
+          title: row.getAttribute('data-title'),
+          section: row.getAttribute('data-section'),
+          grade: row.getAttribute('data-grade'),
+          row: row
+        });
+      });
+      return selected;
+    }
+
+    // Modal
+    function openGradeChangeModal() {
+      const selected = getSelectedGradeCourses();
+      if (selected.length === 0) {
+        alert('Please select at least one course row to request a grade change.');
+        return;
+      }
+
+      const listContainer = document.getElementById('modalGradeCoursesList');
+      listContainer.innerHTML = selected.map(c => `
+        <div class="flex items-center justify-between py-1 border-b border-white/5 last:border-0">
+          <div>
+            <span class="font-semibold text-white">${c.code} – ${c.title}</span>
+            <span class="text-zinc-500 text-[11px] block">Section: ${c.section}</span>
+          </div>
+          <span class="text-zinc-300">Grade: <strong class="text-amber-400 font-bold">${c.grade}</strong></span>
+        </div>
+      `).join('');
+
+      document.getElementById('gradeModal').classList.remove('hidden');
+    }
+
+    function closeGradeChangeModal() {
+      document.getElementById('gradeModal').classList.add('hidden');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 4000);
+    }
+
+    function handleGradeChangeSubmit(e) {
+      e.preventDefault();
+      const selected = getSelectedGradeCourses();
+
+      selected.forEach(item => {
+        const statusCol = item.row.querySelector('.status-col');
+        statusCol.innerHTML = '<span class="badge badge-amber">Under Scrutiny</span>';
+        const cb = item.row.querySelector('.grade-checkbox');
+        cb.checked = false;
+        cb.disabled = true;
+      });
+
+      updateGradeSelection();
+      closeGradeChangeModal();
+      showToast(`Grade change request submitted for ${selected.length} course(s).`);
+    }
+  </script>
+</body>
+</html>

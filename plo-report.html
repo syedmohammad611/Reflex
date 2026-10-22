@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReFlex - PLO Achievement Report</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { x: '#FF2E00', dark: '#000000' },
+          fontFamily: { sans: ['Product Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles/app.css" />
+  <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
+</head>
+<body class="bg-black text-white min-h-screen selection:bg-x selection:text-white" style="background-image: url('public/overlay.png'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="fixed top-0 left-0 h-full w-[250px] p-3 flex flex-col bg-black/95 border-r border-white/10 z-50 overflow-hidden">
+      <!-- Logo -->
+      <div class="px-2 py-2 flex items-center">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="public/reflex-logo.jpg" alt="ReFlex" class="h-8 max-w-[190px] object-contain" />
+        </a>
+      </div>
+      <div class="h-px bg-gradient-to-r from-transparent via-slate-600/50 to-transparent my-2"></div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+        <!-- 1. Home -->
+        <a href="index.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="truncate">Home</span>
+        </a>
+
+        <!-- 2. Course Registration -->
+        <a href="course-registration.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+          <span class="truncate">Course Registration</span>
+        </a>
+
+        <!-- 3. Attendance -->
+        <a href="attendance.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
+          <span class="truncate">Attendance</span>
+        </a>
+
+        <!-- 4. Marks -->
+        <a href="marks.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          <span class="truncate">Marks</span>
+        </a>
+
+        <!-- 5. PLO Report (Active) -->
+        <a href="plo-report.html" class="bg-[#FF2E00] text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm shadow-md shadow-[#FF2E00]/20 transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+          <span class="truncate">PLO Report</span>
+          <span class="h-2 w-2 rounded-full bg-white ml-auto"></span>
+        </a>
+
+        <!-- 6. Transcript -->
+        <a href="transcript.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+          <span class="truncate">Transcript</span>
+        </a>
+
+        <!-- 7. Challan -->
+        <a href="challan.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          <span class="truncate">Fee Challan</span>
+        </a>
+
+        <!-- 8. Consolidated Fee Report -->
+        <a href="fee-report.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/><path d="M10 16h-2"/></svg>
+          <span class="truncate">Consolidated Fee Report</span>
+        </a>
+
+        <!-- 9. Course Feedback -->
+        <a href="feedback.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span class="truncate">Course Feedback</span>
+        </a>
+
+        <!-- 10. Retake Request -->
+        <a href="retake.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          <span class="truncate">Retake Request</span>
+        </a>
+
+        <!-- 11. Course Withdraw -->
+        <a href="withdraw.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+          <span class="truncate">Course Withdraw</span>
+        </a>
+
+        <!-- 12. Grade Change Request -->
+        <a href="grade-change.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span class="truncate">Grade Change Request</span>
+        </a>
+
+        <!-- 13. Study Plan -->
+        <a href="study-plan.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          <span class="truncate">Study Plan</span>
+        </a>
+
+        <!-- 14. Change Password -->
+        <a href="change-password.html" class="text-slate-300 hover:bg-white/10 hover:text-white rounded-xl px-3 py-2 flex items-center gap-3 font-medium text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span class="truncate">Change Password</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Profile & Actions Footer -->
+      <div class="mt-auto pt-3 border-t border-white/10 flex-shrink-0">
+        <div class="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/10 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-zinc-800 border border-white/10 flex items-center justify-center overflow-hidden flex-shrink-0">
+            <img src="public/dev.png" alt="Muhammad Shah" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
+            <svg class="w-6 h-6 text-zinc-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+          </div>
+          <div class="overflow-hidden">
+            <div class="text-sm font-semibold text-white truncate">Muhammad Shah</div>
+            <div class="text-xs text-zinc-400 truncate">Student Portal</div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <a href="change-password.html" title="Change Password" class="w-1/3 py-2 bg-white hover:bg-zinc-200 text-black rounded-xl flex items-center justify-center transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </a>
+          <a href="login.html" title="Logout" class="w-2/3 py-2 bg-gradient-to-r from-[#FF2E00] to-[#E02600] hover:opacity-90 text-white font-medium rounded-xl flex items-center justify-center gap-1.5 transition-opacity text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>Logout</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-[250px] flex-1 p-6 overflow-y-auto custom-scrollbar h-screen">
+      <!-- Top Alert Notice -->
+      <div class="sf-alert mb-6">
+        <div class="sf-alert-icon">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        </div>
+        <div class="flex-1 text-sm text-zinc-200">
+          <strong class="text-white">Outcome Based Education (OBE):</strong> Program Learning Outcomes (PLOs) measure graduation competencies under the Washington Accord. Passing threshold for attainment is set at <strong>50%</strong>.
+        </div>
+      </div>
+
+      <!-- Overview Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-zinc-950/70 border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-zinc-400 font-medium">Assessed PLOs</div>
+            <div class="text-2xl font-bold text-white mt-0.5">8</div>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+        </div>
+
+        <div class="bg-zinc-950/70 border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-zinc-400 font-medium">Outcomes Met</div>
+            <div class="text-2xl font-bold text-emerald-400 mt-0.5">6</div>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+
+        <div class="bg-zinc-950/70 border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-zinc-400 font-medium">Not Met / In Progress</div>
+            <div class="text-2xl font-bold text-rose-400 mt-0.5">2</div>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </div>
+        </div>
+
+        <div class="bg-zinc-950/70 border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-zinc-400 font-medium">Overall Attainment</div>
+            <div class="text-2xl font-bold text-x mt-0.5">75.0%</div>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-x/10 border border-x/20 flex items-center justify-center text-x">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLO Achievement Report Portlet Card -->
+      <div class="portlet bg-black border border-white/10 rounded-3xl p-6 shadow-2xl">
+        <!-- Portlet Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-white/10 gap-4">
+          <div>
+            <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-3">
+              <span class="w-2.5 h-7 bg-x rounded-full inline-block"></span>
+              PLO Achievement Report
+            </h1>
+            <p class="text-sm text-zinc-400 mt-1">Program Learning Outcomes evaluation for BS Computer Science</p>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-white/10 text-xs font-semibold text-zinc-300">
+              Batch: Fall 2023 (Session 7)
+            </span>
+          </div>
+        </div>
+
+        <!-- PLO Table -->
+        <div class="mt-6 overflow-x-auto rounded-2xl border border-white/10 custom-scrollbar">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead class="bg-zinc-900 text-zinc-400">
+              <tr>
+                <th class="py-3.5 px-4 font-semibold text-xs tracking-wider uppercase border-b border-white/10 w-24">PLO #</th>
+                <th class="py-3.5 px-4 font-semibold text-xs tracking-wider uppercase border-b border-white/10">Description</th>
+                <th class="py-3.5 px-4 font-semibold text-xs tracking-wider uppercase border-b border-white/10 w-44">Score</th>
+                <th class="py-3.5 px-4 font-semibold text-xs tracking-wider uppercase border-b border-white/10 text-center w-32">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/10 bg-black">
+              <!-- PLO 1 -->
+              <tr class="hover:bg-white/[0.03] transition-colors">
+                <td class="py-4 px-4 font-bold text-x">PLO-1</td>
+                <td class="py-4 px-4 text-zinc-200">
+                  <span class="font-semibold text-white block mb-0.5">Academic Education</span>
+                  An ability to apply knowledge of computing fundamentals, knowledge of a computing specialization, and mathematics, science, and domain knowledge appropriate for the computing specialization to the abstraction and conceptualization of computing models.
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-zinc-800 rounded-full h-2 overflow-hidden">
+                      <div class="bg-emerald-400 h-2 rounded-full" style="width: 84%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-400">84%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Met
+                  </span>
+                </td>
+              </tr>
+
+              <!-- PLO 2 -->
+              <tr class="hover:bg-white/[0.03] transition-colors">
+                <td class="py-4 px-4 font-bold text-x">PLO-2</td>
+                <td class="py-4 px-4 text-zinc-200">
+                  <span class="font-semibold text-white block mb-0.5">Knowledge for Solving Computing Problems</span>
+                  An ability to identify, formulate, research literature, and solve complex computing problems reaching substantiated conclusions using fundamental principles of mathematics, computing sciences, and relevant domain disciplines.
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-zinc-800 rounded-full h-2 overflow-hidden">
+                      <div class="bg-emerald-400 h-2 rounded-full" style="width: 79%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-400">79%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Met
+                  </span>
+                </td>
+              </tr>
+
+              <!-- PLO 3 -->
+              <tr class="hover:bg-white/[0.03] transition-colors">
+                <td class="py-4 px-4 font-bold text-x">PLO-3</td>
+                <td class="py-4 px-4 text-zinc-200">
+                  <span class="font-semibold text-white block mb-0.5">Problem Analysis</span>
+                  An ability to design solutions for complex computing problems and design systems, components or processes that meet specified needs with appropriate consideration for public health and safety, cultural, societal, and environmental considerations.
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-zinc-800 rounded-full h-2 overflow-hidden">
+                      <div class="bg-emerald-400 h-2 rounded-full" style="width: 82%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-400">82%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Met
+                  </span>
+                </td>
+              </tr>
+
+              <!-- PLO 4 -->
+              <tr class="hover:bg-white/[0.03] transition-colors">
+                <td class="py-4 px-4 font-bold text-x">PLO-4</td>
+                <td class="py-4 px-4 text-zinc-200">
+                  <span class="font-semibold text-white block mb-0.5">Design / Development of Solutions</span>
+                  An ability to create, select, adapt and apply appropriate techniques, resources, and modern computing tools to complex computing activities, with an understanding of the limitations.
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-zinc-800 rounded-full h-2 overflow-hidden">
+                      <div class="bg-emerald-400 h-2 rounded-full" style="width: 91%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-400">91%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Met
+                  </span>
+                </td>
+              </tr>
+
+              <!-- PLO 5 -->
+              <tr class="hover:bg-white/[0.03] transition-colors">
+                <td class="py-4 px-4 font-bold text-x">PLO-5</td>
+                <td class="py-4 px-4 text-zinc-200">
+                  <span class="font-semibold text-white block mb-0.5">Modern Tool Usage</span>
+                  An ability to function effectively as an individual and as a member or leader in diverse teams and in multi-disciplinary settings.
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-zinc-800 rounded-full h-2 overflow-hidden">
+                      <div class="bg-emerald-400 h-2 rounded-full" style="width: 88%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-400">88%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Met
+                  </span>
+                </td>
+              </tr>
+
+              <!-- PLO 6 -->
+              <tr class="hover:bg-white/[0.03] transition-colors">
+                <td class="py-4 px-4 font-bold text-x">PLO-6</td>
+                <td class="py-4 px-4 text-zinc-200">
+                  <span class="font-semibold text-white block mb-0.5">Individual and Team Work</span>
+                  An ability to apply reasoning informed by contextual knowledge to assess societal, health, safety, legal, and cultural issues and the consequent responsibilities relevant to professional computing practice.
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-zinc-800 rounded-full h-2 overflow-hidden">
+                      <div class="bg-emerald-400 h-2 rounded-full" style="width: 74%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-400">74%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Met
+                  </span>
+                </td>
+              </tr>
+
+              <!-- PLO 7 -->
+              <tr class="hover:bg-white/[0.03] transition-colors">
+                <td class="py-4 px-4 font-bold text-x">PLO-7</td>
+                <td class="py-4 px-4 text-zinc-200">
+                  <span class="font-semibold text-white block mb-0.5">Communication</span>
+                  An ability to communicate effectively on complex computing activities with the computing community and with society at large, such as being able to comprehend and write effective reports and design documentation, make effective presentations, and give and receive clear instructions.
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-zinc-800 rounded-full h-2 overflow-hidden">
+                      <div class="bg-rose-500 h-2 rounded-full" style="width: 44%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-rose-400">44%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Not Met
+                  </span>
+                </td>
+              </tr>
+
+              <!-- PLO 8 -->
+              <tr class="hover:bg-white/[0.03] transition-colors">
+                <td class="py-4 px-4 font-bold text-x">PLO-8</td>
+                <td class="py-4 px-4 text-zinc-200">
+                  <span class="font-semibold text-white block mb-0.5">Computing Professionalism and Society</span>
+                  An ability to recognize the ongoing need for, and have the preparation and ability to engage in independent learning and continuing professional development in the broadest context of technological change.
+                </td>
+                <td class="py-4 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1 bg-zinc-800 rounded-full h-2 overflow-hidden">
+                      <div class="bg-rose-500 h-2 rounded-full" style="width: 48%"></div>
+                    </div>
+                    <span class="text-xs font-bold text-rose-400">48%</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Not Met
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Legend and Footnote -->
+        <div class="mt-4 flex flex-wrap items-center justify-between text-xs text-zinc-400 border-t border-white/10 pt-4 gap-3">
+          <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Met (Attained ≥ 50%)</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Not Met (&lt; 50% or Pending FYP-II Assessment)</span>
+          </div>
+          <span class="text-zinc-500">PLO 7 & 8 will be reassessed upon submission and defense of FYP-II (CS4092).</span>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

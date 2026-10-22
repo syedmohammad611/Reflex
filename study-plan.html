@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReFlex – Tentative Study Plan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { x: '#FF2E00', dark: '#000000' },
+          fontFamily: { sans: ['Product Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles/app.css" />
+  <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
+</head>
+<body class="bg-black bg-[url('public/overlay.png')] bg-no-repeat bg-cover bg-fixed text-white min-h-screen font-sans antialiased overflow-x-hidden">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div id="mobileBackdrop" class="fixed inset-0 bg-black/80 z-40 hidden lg:hidden"></div>
+
+  <!-- Mobile Top Bar -->
+  <div class="lg:hidden flex items-center justify-between p-4 bg-black border-b border-white/10 sticky top-0 z-30">
+    <div class="flex items-center gap-3">
+      <img src="public/reflex-logo.jpg" alt="ReFlex" class="h-6 w-auto" />
+    </div>
+    <button id="mobileMenuBtn" class="p-2 text-white/80 hover:text-white rounded-lg focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar (250px) -->
+    <aside id="sidebar" class="sidebar fixed top-0 bottom-0 left-0 w-[250px] bg-black border-r border-white/10 flex flex-col z-50 transition-transform duration-300 -translate-x-full lg:translate-x-0 custom-scrollbar">
+      <!-- Logo -->
+      <div class="sidebar-logo p-5 flex items-center justify-between border-b border-white/10 shrink-0">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="public/reflex-logo.jpg" alt="ReFlex" class="h-7 w-auto" />
+        </a>
+        <button id="closeSidebarBtn" class="lg:hidden text-white/60 hover:text-white">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav flex-1 py-3 px-2 space-y-1 overflow-y-auto custom-scrollbar">
+        <!-- 1. Home -->
+        <a href="index.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5a1 1 0 01-1-1v-5h-4v5a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
+          <span>Home</span>
+        </a>
+
+        <!-- 2. Course Registration -->
+        <a href="course-registration.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Course Registration</span>
+        </a>
+
+        <!-- 3. Attendance -->
+        <a href="attendance.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 16l2 2 4-4"/></svg>
+          <span>Attendance</span>
+        </a>
+
+        <!-- 4. Marks -->
+        <a href="marks.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="6"/><path stroke-linecap="round" stroke-linejoin="round" d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          <span>Marks</span>
+        </a>
+
+        <!-- 5. Marks PLO Report -->
+        <a href="plo-report.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Marks PLO Report</span>
+        </a>
+
+        <!-- 6. Transcript -->
+        <a href="transcript.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Transcript</span>
+        </a>
+
+        <!-- 7. Fee Challan -->
+        <a href="challan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <span>Fee Challan</span>
+        </a>
+
+        <!-- 8. Fee Details / Report -->
+        <a href="fee-report.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          <span>Fee Details</span>
+        </a>
+
+        <!-- 9. Course Feedback -->
+        <a href="feedback.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span>Course Feedback</span>
+        </a>
+
+        <!-- 10. Retake Request -->
+        <a href="retake.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Retake Exam Request</span>
+        </a>
+
+        <!-- 11. Course Withdraw -->
+        <a href="withdraw.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span>Course Withdraw</span>
+        </a>
+
+        <!-- 12. Grade Change Request -->
+        <a href="grade-change.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path stroke-linecap="round" stroke-linejoin="round" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span>Grade Change Request</span>
+        </a>
+
+        <!-- 13. Study Plan (ACTIVE) -->
+        <a href="study-plan.html" class="active flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold transition-all bg-[#FF2E00]/10 text-[#FF2E00] border-l-4 border-[#FF2E00]">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span>Tentative Study Plan</span>
+          </div>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#FF2E00]"></span>
+        </a>
+
+        <!-- 14. Change Password -->
+        <a href="change-password.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/70 hover:bg-white/5 hover:text-white transition-all">
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Change Password</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer (Profile + Actions) -->
+      <div class="sidebar-footer p-3 border-t border-white/10 shrink-0 space-y-2">
+        <div class="bg-zinc-900/80 border border-white/10 rounded-2xl p-2.5 flex items-center gap-3">
+          <img src="public/dev.png" alt="Muhammad Shah" class="w-9 h-9 rounded-xl object-cover border border-white/10" />
+          <div class="min-w-0 flex-1">
+            <h4 class="text-sm font-semibold text-white truncate">Muhammad Shah</h4>
+            <p class="text-xs text-zinc-400 truncate">Student Portal</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <a href="change-password.html" title="Change Password" class="flex items-center justify-center p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-white/80 hover:text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </a>
+          <a href="login.html" title="Logout" class="flex items-center justify-center p-2 rounded-xl bg-x hover:bg-x/80 text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 lg:ml-[250px] p-4 lg:p-8 min-h-screen">
+      <div class="max-w-7xl mx-auto space-y-6">
+
+        <!-- Degree Stats Summary -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="bg-black border border-white/10 rounded-2xl p-4">
+            <span class="text-xs text-zinc-400 block mb-1">Degree Program</span>
+            <span class="text-sm sm:text-base font-bold text-white">BS Computer Science</span>
+          </div>
+          <div class="bg-black border border-white/10 rounded-2xl p-4">
+            <span class="text-xs text-zinc-400 block mb-1">Total Degree Credits</span>
+            <span class="text-sm sm:text-base font-bold text-white">134 Cr Hrs</span>
+          </div>
+          <div class="bg-black border border-white/10 rounded-2xl p-4">
+            <span class="text-xs text-zinc-400 block mb-1">Completed Credits</span>
+            <span class="text-sm sm:text-base font-bold text-emerald-400">104 Cr (78%)</span>
+          </div>
+          <div class="bg-black border border-white/10 rounded-2xl p-4">
+            <span class="text-xs text-zinc-400 block mb-1">Remaining Credits</span>
+            <span class="text-sm sm:text-base font-bold text-amber-400">30 Cr (2 Semesters)</span>
+          </div>
+        </div>
+
+        <!-- Portlet Card -->
+        <div class="portlet bg-black border border-white/10 rounded-3xl shadow-2xl p-6 space-y-4">
+          <!-- Portlet Header -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold text-white">Tentative Study Plan</h2>
+              <p class="text-xs sm:text-sm text-zinc-400 mt-1">Four-year roadmap of 8 semesters with Core and Elective course distributions.</p>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center gap-2">
+              <button onclick="expandAllSemesters()" class="btn-ghost px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-white transition-all">
+                Expand All
+              </button>
+              <button onclick="collapseAllSemesters()" class="btn-ghost px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-white transition-all">
+                Collapse All
+              </button>
+              <button onclick="window.print()" class="btn-x px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-x hover:bg-x/80 text-white transition-all inline-flex items-center gap-1.5 shadow-md shadow-x/20">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                Print Plan
+              </button>
+            </div>
+          </div>
+
+          <!-- Accordion Container for 8 Semesters -->
+          <div class="space-y-4 pt-2">
+
+            <!-- ================= Semester 1 ================= -->
+            <div class="accordion-item border border-white/10 rounded-2xl overflow-hidden bg-black transition-all">
+              <!-- Trigger Bar -->
+              <button onclick="toggleAccordion('sem1')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors focus:outline-none">
+                <div class="flex items-center gap-3">
+                  <span id="sem1Icon" class="w-7 h-7 rounded-full bg-x text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-x/20">&minus;</span>
+                  <span class="font-bold text-sm sm:text-base text-white">Semester No. 1 <span class="font-normal text-zinc-400 text-xs sm:text-sm">(Fall 2023)</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Completed &bull; 17 Cr</span>
+                </div>
+              </button>
+
+              <!-- Content Table -->
+              <div id="sem1" class="accordion-content expanded border-t border-white/10">
+                <div class="overflow-x-auto custom-scrollbar">
+                  <table class="sf-table w-full text-left">
+                    <thead>
+                      <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold text-zinc-400 uppercase">
+                        <th class="py-3 px-6">Code</th>
+                        <th class="py-3 px-6">Course Name</th>
+                        <th class="py-3 px-6 text-center">CrdHrs</th>
+                        <th class="py-3 px-6 text-right">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-sm">
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">NS1001</td><td class="py-3 px-6 text-zinc-200">Applied Physics</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">MT1003</td><td class="py-3 px-6 text-zinc-200">Calculus and Analytical Geometry</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">SS1012</td><td class="py-3 px-6 text-zinc-200">Functional English</td><td class="py-3 px-6 text-center font-semibold">2</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">SL1012</td><td class="py-3 px-6 text-zinc-200">Functional English - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">SS1013</td><td class="py-3 px-6 text-zinc-200">Ideology and Constitution of Pakistan</td><td class="py-3 px-6 text-center font-semibold">2</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS1002</td><td class="py-3 px-6 text-zinc-200">Programming Fundamentals</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CL1002</td><td class="py-3 px-6 text-zinc-200">Programming Fundamentals - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= Semester 2 ================= -->
+            <div class="accordion-item border border-white/10 rounded-2xl overflow-hidden bg-black transition-all">
+              <button onclick="toggleAccordion('sem2')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors focus:outline-none">
+                <div class="flex items-center gap-3">
+                  <span id="sem2Icon" class="w-7 h-7 rounded-full bg-x text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-x/20">+</span>
+                  <span class="font-bold text-sm sm:text-base text-white">Semester No. 2 <span class="font-normal text-zinc-400 text-xs sm:text-sm">(Spring 2024)</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Completed &bull; 17 Cr</span>
+                </div>
+              </button>
+              <div id="sem2" class="accordion-content border-t border-white/10">
+                <div class="overflow-x-auto custom-scrollbar">
+                  <table class="sf-table w-full text-left">
+                    <thead>
+                      <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold text-zinc-400 uppercase">
+                        <th class="py-3 px-6">Code</th>
+                        <th class="py-3 px-6">Course Name</th>
+                        <th class="py-3 px-6 text-center">CrdHrs</th>
+                        <th class="py-3 px-6 text-right">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-sm">
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS2001</td><td class="py-3 px-6 text-zinc-200">Object Oriented Programming</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CL2001</td><td class="py-3 px-6 text-zinc-200">Object Oriented Programming - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">EE1005</td><td class="py-3 px-6 text-zinc-200">Digital Logic Design</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">EL1005</td><td class="py-3 px-6 text-zinc-200">Digital Logic Design - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">MT1004</td><td class="py-3 px-6 text-zinc-200">Linear Algebra</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">SS1014</td><td class="py-3 px-6 text-zinc-200">Islamic Studies / Ethics</td><td class="py-3 px-6 text-center font-semibold">2</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">SS2003</td><td class="py-3 px-6 text-zinc-200">Communication & Presentation Skills</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= Semester 3 ================= -->
+            <div class="accordion-item border border-white/10 rounded-2xl overflow-hidden bg-black transition-all">
+              <button onclick="toggleAccordion('sem3')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors focus:outline-none">
+                <div class="flex items-center gap-3">
+                  <span id="sem3Icon" class="w-7 h-7 rounded-full bg-x text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-x/20">+</span>
+                  <span class="font-bold text-sm sm:text-base text-white">Semester No. 3 <span class="font-normal text-zinc-400 text-xs sm:text-sm">(Fall 2024)</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Completed &bull; 17 Cr</span>
+                </div>
+              </button>
+              <div id="sem3" class="accordion-content border-t border-white/10">
+                <div class="overflow-x-auto custom-scrollbar">
+                  <table class="sf-table w-full text-left">
+                    <thead>
+                      <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold text-zinc-400 uppercase">
+                        <th class="py-3 px-6">Code</th>
+                        <th class="py-3 px-6">Course Name</th>
+                        <th class="py-3 px-6 text-center">CrdHrs</th>
+                        <th class="py-3 px-6 text-right">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-sm">
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS2005</td><td class="py-3 px-6 text-zinc-200">Data Structures & Algorithms</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CL2005</td><td class="py-3 px-6 text-zinc-200">Data Structures & Algorithms - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS2006</td><td class="py-3 px-6 text-zinc-200">Discrete Mathematical Structures</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">EE2003</td><td class="py-3 px-6 text-zinc-200">Computer Organization & Assembly Language</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">EL2003</td><td class="py-3 px-6 text-zinc-200">COAL - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">MT2005</td><td class="py-3 px-6 text-zinc-200">Differential Equations</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= Semester 4 ================= -->
+            <div class="accordion-item border border-white/10 rounded-2xl overflow-hidden bg-black transition-all">
+              <button onclick="toggleAccordion('sem4')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors focus:outline-none">
+                <div class="flex items-center gap-3">
+                  <span id="sem4Icon" class="w-7 h-7 rounded-full bg-x text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-x/20">+</span>
+                  <span class="font-bold text-sm sm:text-base text-white">Semester No. 4 <span class="font-normal text-zinc-400 text-xs sm:text-sm">(Spring 2025)</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Completed &bull; 17 Cr</span>
+                </div>
+              </button>
+              <div id="sem4" class="accordion-content border-t border-white/10">
+                <div class="overflow-x-auto custom-scrollbar">
+                  <table class="sf-table w-full text-left">
+                    <thead>
+                      <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold text-zinc-400 uppercase">
+                        <th class="py-3 px-6">Code</th>
+                        <th class="py-3 px-6">Course Name</th>
+                        <th class="py-3 px-6 text-center">CrdHrs</th>
+                        <th class="py-3 px-6 text-right">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-sm">
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3001</td><td class="py-3 px-6 text-zinc-200">Database Systems</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CL3001</td><td class="py-3 px-6 text-zinc-200">Database Systems - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3005</td><td class="py-3 px-6 text-zinc-200">Operating Systems</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CL3005</td><td class="py-3 px-6 text-zinc-200">Operating Systems - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS2009</td><td class="py-3 px-6 text-zinc-200">Design & Analysis of Algorithms</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">MT2006</td><td class="py-3 px-6 text-zinc-200">Probability and Statistics</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= Semester 5 ================= -->
+            <div class="accordion-item border border-white/10 rounded-2xl overflow-hidden bg-black transition-all">
+              <button onclick="toggleAccordion('sem5')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors focus:outline-none">
+                <div class="flex items-center gap-3">
+                  <span id="sem5Icon" class="w-7 h-7 rounded-full bg-x text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-x/20">+</span>
+                  <span class="font-bold text-sm sm:text-base text-white">Semester No. 5 <span class="font-normal text-zinc-400 text-xs sm:text-sm">(Fall 2025)</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Completed &bull; 18 Cr</span>
+                </div>
+              </button>
+              <div id="sem5" class="accordion-content border-t border-white/10">
+                <div class="overflow-x-auto custom-scrollbar">
+                  <table class="sf-table w-full text-left">
+                    <thead>
+                      <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold text-zinc-400 uppercase">
+                        <th class="py-3 px-6">Code</th>
+                        <th class="py-3 px-6">Course Name</th>
+                        <th class="py-3 px-6 text-center">CrdHrs</th>
+                        <th class="py-3 px-6 text-right">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-sm">
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3004</td><td class="py-3 px-6 text-zinc-200">Software Engineering</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3007</td><td class="py-3 px-6 text-zinc-200">Computer Networks</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CL3007</td><td class="py-3 px-6 text-zinc-200">Computer Networks - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3009</td><td class="py-3 px-6 text-zinc-200">Theory of Automata & Formal Languages</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3014</td><td class="py-3 px-6 text-zinc-200">Applied Human Computer Interaction</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-amber">Elective</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">MG1001</td><td class="py-3 px-6 text-zinc-200">Fundamentals of Management</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-amber">Elective</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= Semester 6 ================= -->
+            <div class="accordion-item border border-white/10 rounded-2xl overflow-hidden bg-black transition-all">
+              <button onclick="toggleAccordion('sem6')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors focus:outline-none">
+                <div class="flex items-center gap-3">
+                  <span id="sem6Icon" class="w-7 h-7 rounded-full bg-x text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-x/20">+</span>
+                  <span class="font-bold text-sm sm:text-base text-white">Semester No. 6 <span class="font-normal text-zinc-400 text-xs sm:text-sm">(Spring 2026)</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Completed &bull; 18 Cr</span>
+                </div>
+              </button>
+              <div id="sem6" class="accordion-content border-t border-white/10">
+                <div class="overflow-x-auto custom-scrollbar">
+                  <table class="sf-table w-full text-left">
+                    <thead>
+                      <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold text-zinc-400 uppercase">
+                        <th class="py-3 px-6">Code</th>
+                        <th class="py-3 px-6">Course Name</th>
+                        <th class="py-3 px-6 text-center">CrdHrs</th>
+                        <th class="py-3 px-6 text-right">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-sm">
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">AI2001</td><td class="py-3 px-6 text-zinc-200">Artificial Intelligence</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">AL2001</td><td class="py-3 px-6 text-zinc-200">Artificial Intelligence - Lab</td><td class="py-3 px-6 text-center font-semibold">1</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3008</td><td class="py-3 px-6 text-zinc-200">Numerical Computing</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS4003</td><td class="py-3 px-6 text-zinc-200">Information Security</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3022</td><td class="py-3 px-6 text-zinc-200">Web Application Development</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-amber">Elective</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">SS2008</td><td class="py-3 px-6 text-zinc-200">Technical & Business Writing</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= Semester 7 (Current) ================= -->
+            <div class="accordion-item border border-x/30 rounded-2xl overflow-hidden bg-black transition-all">
+              <button onclick="toggleAccordion('sem7')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors focus:outline-none bg-x/5">
+                <div class="flex items-center gap-3">
+                  <span id="sem7Icon" class="w-7 h-7 rounded-full bg-x text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-x/20">+</span>
+                  <span class="font-bold text-sm sm:text-base text-white">Semester No. 7 <span class="font-normal text-zinc-400 text-xs sm:text-sm">(Fall 2026 – Current Session)</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-x/20 text-x border border-x/30 font-semibold">In Progress &bull; 15 Cr</span>
+                </div>
+              </button>
+              <div id="sem7" class="accordion-content border-t border-white/10">
+                <div class="overflow-x-auto custom-scrollbar">
+                  <table class="sf-table w-full text-left">
+                    <thead>
+                      <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold text-zinc-400 uppercase">
+                        <th class="py-3 px-6">Code</th>
+                        <th class="py-3 px-6">Course Name</th>
+                        <th class="py-3 px-6 text-center">CrdHrs</th>
+                        <th class="py-3 px-6 text-right">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-sm">
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS3006</td><td class="py-3 px-6 text-zinc-200">Parallel and Distributed Computing</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS4031</td><td class="py-3 px-6 text-zinc-200">Compiler Construction</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS4045</td><td class="py-3 px-6 text-zinc-200">Deep Learning for Perception</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-amber">Elective</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS4001</td><td class="py-3 px-6 text-zinc-200">Professional Practices in IT</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS4091</td><td class="py-3 px-6 text-zinc-200">Final Year Project – I</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= Semester 8 ================= -->
+            <div class="accordion-item border border-white/10 rounded-2xl overflow-hidden bg-black transition-all">
+              <button onclick="toggleAccordion('sem8')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors focus:outline-none">
+                <div class="flex items-center gap-3">
+                  <span id="sem8Icon" class="w-7 h-7 rounded-full bg-x text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-x/20">+</span>
+                  <span class="font-bold text-sm sm:text-base text-white">Semester No. 8 <span class="font-normal text-zinc-400 text-xs sm:text-sm">(Spring 2027 – Tentative)</span></span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-300 border border-white/10 font-medium">Planned &bull; 15 Cr</span>
+                </div>
+              </button>
+              <div id="sem8" class="accordion-content border-t border-white/10">
+                <div class="overflow-x-auto custom-scrollbar">
+                  <table class="sf-table w-full text-left">
+                    <thead>
+                      <tr class="bg-zinc-900 border-b border-white/10 text-xs font-semibold text-zinc-400 uppercase">
+                        <th class="py-3 px-6">Code</th>
+                        <th class="py-3 px-6">Course Name</th>
+                        <th class="py-3 px-6 text-center">CrdHrs</th>
+                        <th class="py-3 px-6 text-right">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-sm">
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS4092</td><td class="py-3 px-6 text-zinc-200">Final Year Project – II</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-emerald">Core</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS4048</td><td class="py-3 px-6 text-zinc-200">Cloud Computing Infrastructure</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-amber">Elective</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">CS4050</td><td class="py-3 px-6 text-zinc-200">Natural Language Processing</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-amber">Elective</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">MG4001</td><td class="py-3 px-6 text-zinc-200">Entrepreneurship & Tech Incubation</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-amber">Elective</span></td></tr>
+                      <tr class="hover:bg-white/[0.02]"><td class="py-3 px-6 font-semibold text-white">SS3001</td><td class="py-3 px-6 text-zinc-200">Foreign Language (German / Chinese)</td><td class="py-3 px-6 text-center font-semibold">3</td><td class="py-3 px-6 text-right"><span class="badge badge-amber">Elective</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Sidebar toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    const sidebar = document.getElementById('sidebar');
+    const mobileBackdrop = document.getElementById('mobileBackdrop');
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('-translate-x-full');
+      mobileBackdrop.classList.toggle('hidden');
+    }
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleSidebar);
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleSidebar);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', toggleSidebar);
+
+    // Accordion Toggle Logic
+    function toggleAccordion(id) {
+      const content = document.getElementById(id);
+      const icon = document.getElementById(id + 'Icon');
+      const isExpanded = content.classList.contains('expanded');
+
+      if (isExpanded) {
+        content.classList.remove('expanded');
+        icon.innerHTML = '+';
+      } else {
+        content.classList.add('expanded');
+        icon.innerHTML = '&minus;';
+      }
+    }
+
+    function expandAllSemesters() {
+      for (let i = 1; i <= 8; i++) {
+        const content = document.getElementById('sem' + i);
+        const icon = document.getElementById('sem' + i + 'Icon');
+        if (content && icon) {
+          content.classList.add('expanded');
+          icon.innerHTML = '&minus;';
+        }
+      }
+    }
+
+    function collapseAllSemesters() {
+      for (let i = 1; i <= 8; i++) {
+        const content = document.getElementById('sem' + i);
+        const icon = document.getElementById('sem' + i + 'Icon');
+        if (content && icon) {
+          content.classList.remove('expanded');
+          icon.innerHTML = '+';
+        }
+      }
+    }
+  </script>
+</body>
+</html>
